@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4582121447138924047}
   - component: {fileID: 7651385289545399553}
   m_Layer: 0
-  m_Name: Lime
+  m_Name: Chocolate
   m_TagString: CubbleObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -94,7 +94,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7000623909574115184}
-  m_Mesh: {fileID: 7986953115042511962, guid: f32db5fdd2b191b4f99761db458098da, type: 3}
+  m_Mesh: {fileID: 5355905632975176339, guid: 9a474dd0975f80449a534d174e0b466b, type: 3}
 --- !u!23 &7636451309443018149
 MeshRenderer:
   m_ObjectHideFlags: 0
