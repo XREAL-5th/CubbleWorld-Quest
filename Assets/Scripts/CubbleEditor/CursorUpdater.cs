@@ -31,7 +31,8 @@ public class CursorUpdater : MonoBehaviour {
 
         if(Input.GetMouseButtonDown((int)MouseButton.Left) && validPosition)
         {
-            Instantiate(cubeList.cubes[0], gameObject.transform.position, gameObject.transform.rotation, cubesRoot);
+            Debug.Log(SelectedCube.Cube);
+            Instantiate(cubeList.cubes[SelectedCube.Cube], gameObject.transform.position, gameObject.transform.rotation, cubesRoot);;
         }
         else if(Input.GetMouseButtonDown((int)MouseButton.Right) && hits[0].collider.CompareTag("CubbleObject"))
         {
