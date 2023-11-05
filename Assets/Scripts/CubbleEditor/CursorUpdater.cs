@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -21,7 +22,6 @@ public class CursorUpdater : MonoBehaviour {
     private RaycastHit[] hits = new RaycastHit[15]; //we can expect at most 15 items in a straight line
     private Collider[] res = new Collider[1];
 
-
     private void UpdateInput() {
         //todo: Place or remove cube at local position
         //the cursor localPosition and localRotation should be used to place the cube, as a child of cubesRoot
@@ -29,9 +29,14 @@ public class CursorUpdater : MonoBehaviour {
         //validPosition is trun when hasTarget is true AND the cursor position is not obstructed.
         //this method is called each frame, whether the cursor is in focus or not. Use !EventSystem.IsPointerOverGameObject to validate UI focus blocking.
 
-        ///////////////////////////////////////////////////////
-        //////////////// TODO: WRITE CODE HERE ////////////////
-        ///////////////////////////////////////////////////////
+        if(Input.GetMouseButtonDown((int)MouseButton.Left) && validPosition)
+        {
+            Instantiate(cubeList.cubes[0], gameObject.transform.position, gameObject.transform.rotation, cubesRoot);
+        }
+        else if(Input.GetMouseButtonDown((int)MouseButton.Right) && hits[0].collider.CompareTag("CubbleObject"))
+        {
+            Destroy(hits[0].collider.gameObject);
+        }
     }
 
     //Below is some skeleton code responsible for raycasting and positioning the cursor before UpdateInput() is called.
