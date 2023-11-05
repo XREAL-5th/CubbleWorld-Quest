@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5682366115898584008}
   - component: {fileID: 888562777456632662}
   - component: {fileID: 8551045666818639884}
-  - component: {fileID: 3339879145692004781}
+  - component: {fileID: 933857814180247423}
   m_Layer: 5
   m_Name: CubeSelectButton
   m_TagString: Untagged
@@ -77,7 +77,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 4
+  m_PixelsPerUnitMultiplier: 12
 --- !u!114 &8551045666818639884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,8 +121,20 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 888562777456632662}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
---- !u!114 &3339879145692004781
+      m_Calls:
+      - m_Target: {fileID: 933857814180247423}
+        m_TargetAssemblyTypeName: CubeSelectButtonBehavior, Assembly-CSharp
+        m_MethodName: SelectCube
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &933857814180247423
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,15 +143,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4540332618454981153}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45deec8c9698b2545bdfd58391826883, type: 3}
+  m_Script: {fileID: 11500000, guid: 8bf612c68765a49449d95326ba84f4e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defColor: {r: 1, g: 1, b: 1, a: 0.6862745}
-  activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 0.6862745}
-  nameLabel: {fileID: 5365891231010246011}
-  icon: {fileID: 0}
-  bg: {fileID: 888562777456632662}
-  button: {fileID: 8551045666818639884}
+  nameText: {fileID: 5365891231010246011}
 --- !u!1 &8156393557175753578
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,7 +239,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
+  m_fontSize: 8
   m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 1

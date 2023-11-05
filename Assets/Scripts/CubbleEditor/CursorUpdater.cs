@@ -41,7 +41,9 @@ public class CursorUpdater : MonoBehaviour
         if (!hasTarget) return;
         
         // TODO: select cube
-        var cubePrefab = cubeList.cubes[0];
+        // var cubePrefab = cubeList.cubes[0];
+        var selectedCube = CubeManager.Instance.SelectedCube;
+        var cubePrefab = selectedCube == null ? cubeList.cubes[0] : selectedCube;
         var cubeGameObject = Instantiate(cubePrefab, transform.position, transform.rotation);
         cubeGameObject.transform.SetParent(cubesRoot);
     }
