@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5682366115898584008}
   - component: {fileID: 888562777456632662}
   - component: {fileID: 8551045666818639884}
-  - component: {fileID: 3339879145692004781}
+  - component: {fileID: 3188310415176013219}
   m_Layer: 5
   m_Name: CubeSelectButton
   m_TagString: Untagged
@@ -122,7 +122,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &3339879145692004781
+--- !u!114 &3188310415176013219
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,13 +131,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 4540332618454981153}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45deec8c9698b2545bdfd58391826883, type: 3}
+  m_Script: {fileID: 11500000, guid: 61903914b3873be47b819111a33e43ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defColor: {r: 1, g: 1, b: 1, a: 0.6862745}
-  activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 0.6862745}
+  defColor: {r: 1, g: 1, b: 1, a: 1}
+  activeColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   nameLabel: {fileID: 5365891231010246011}
-  icon: {fileID: 0}
   bg: {fileID: 888562777456632662}
   button: {fileID: 8551045666818639884}
 --- !u!1 &8156393557175753578
@@ -232,7 +231,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
+  m_fontSize: 8
   m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 1
