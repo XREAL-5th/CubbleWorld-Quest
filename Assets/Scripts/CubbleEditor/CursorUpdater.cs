@@ -13,14 +13,15 @@ public class CursorUpdater : MonoBehaviour {
 
     [Header("Component References")]
     [SerializeField] private Camera cam;
-    [SerializeField] private Transform cubesRoot;
-    [SerializeField] private MeshRenderer mrenderer;
+    [SerializeField] private Transform cubesRoot; // parent transform to create the cube
+    [SerializeField] private MeshRenderer mrenderer; // representing cursor
 
     public bool hasTarget = false, validPosition = false;
 
     private RaycastHit[] hits = new RaycastHit[15]; //we can expect at most 15 items in a straight line
     private Collider[] res = new Collider[1];
 
+   
 
     private void UpdateInput() {
         //todo: Place or remove cube at local position
@@ -29,9 +30,28 @@ public class CursorUpdater : MonoBehaviour {
         //validPosition is trun when hasTarget is true AND the cursor position is not obstructed.
         //this method is called each frame, whether the cursor is in focus or not. Use !EventSystem.IsPointerOverGameObject to validate UI focus blocking.
 
-        ///////////////////////////////////////////////////////
-        //////////////// TODO: WRITE CODE HERE ////////////////
-        ///////////////////////////////////////////////////////
+        bool overUI = EventSystem.current.IsPointerOverGameObject(); // Is mouse cursor over UI element?
+
+        // left mouse button down
+        if (validPosition && Input.GetMouseButtonDown(0) && !overUI)
+        {
+            int id = CubePalette.Main.currentCubeID; // Get currentCubeID (selected cube prefab ID)
+            Instantiate(cubeList.cubes[id], transform.position, transform.rotation, cubesRoot); // place cube 
+            // ^ !! created cube must be a child of the object 'Room/Cubes' !!
+        }
+        // right mouse button down
+        else if (Input.GetMouseButtonDown(1) && !overUI)
+        {
+            // Use Raycast to detect a cube in the cursor position
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            int n = Physics.RaycastNonAlloc(ray, hits, 50, cubeLayer);
+
+            RaycastHit target = GetMinDistanceHit(n);
+            if (n > 0 && target.transform.CompareTag("CubbleObject"))
+            {
+                Destroy(target.transform.gameObject); // remove cube
+            }
+        }
     }
 
     //Below is some skeleton code responsible for raycasting and positioning the cursor before UpdateInput() is called.
