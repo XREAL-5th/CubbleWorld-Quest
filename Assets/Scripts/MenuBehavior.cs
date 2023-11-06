@@ -7,11 +7,13 @@ public class MenuBehavior : MonoBehaviour
     [SerializeField] private CubeList cubeList;
     [SerializeField] private CubeSelectButtonBehavior cubeSelectButton;
 
-    void Awake()
+    void Start()
     {
-        foreach (var cube in cubeList.cubes)
+        for (var i = 0; i < cubeList.cubes.Length; i++)
         {
-            Instantiate(cubeSelectButton, transform).SetCube(cube);
+            var cube = cubeList.cubes[i];
+            var sprite = cubeList.Sprites[i];
+            Instantiate(cubeSelectButton, transform).SetCube(cube, sprite);
         }
     }
 }

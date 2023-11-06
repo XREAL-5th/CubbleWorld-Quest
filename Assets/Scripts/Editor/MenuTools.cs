@@ -1,31 +1,59 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.EditorCoroutines.Editor;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.SceneManagement;
+using Object = UnityEngine.Object;
 
 public static class MenuTools {
+    
+    private const string MainScene = "Assets/Scenes/CubbleEditScene.unity";
+    private const string PreviewScene = "Assets/Scenes/CubePreviewScene.unity";
+    
     [MenuItem("Tools/Switch to Main Scene", priority = 0)]
     public static void SwitchMainScene() {
-        //todo: Ask for saving and open CubbleEditScene
-
-        ///////////////////////////////////////////////////////
-        //////////////// TODO: WRITE CODE HERE ////////////////
-        ///////////////////////////////////////////////////////
+        if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
+        {
+            EditorSceneManager.OpenScene(MainScene);
+        }
     }
 
-    private const string PREVIEWS_PATH = "Assets/Generated/CubePreviews";
     private const string CUBELIST_PATH = "Assets/Scripts/Cubes/CubeList.asset";
 
     [MenuItem("Tools/Generate Cube Previews", priority = 1)]
-    public static void SwitchCubePreviewScene() {
-        //todo: Generate cube preview assets
-        //you can use the above path consts, as well as the Capture() method provided below
+    public static void SwitchCubePreviewScene()
+    {
+        var scenePath = EditorSceneManager.GetActiveScene().path;
+        if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
+        {
+            return;
+        }
 
-        ///////////////////////////////////////////////////////
-        //////////////// TODO: WRITE CODE HERE ////////////////
-        ///////////////////////////////////////////////////////
+        EditorSceneManager.OpenScene(PreviewScene);
+        var cubeAsset = AssetDatabase.LoadAssetAtPath<CubeList>(CUBELIST_PATH);
+        cubeAsset.Sprites = new();
+        foreach (var cube in cubeAsset.cubes)
+        {
+            var sprite = CaptureCube(cube);
+            cubeAsset.Sprites.Add(sprite);
+            EditorUtility.SetDirty(cubeAsset);
+        }
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+        EditorSceneManager.OpenScene(scenePath);
+    }
+
+    private static Sprite CaptureCube(GameObject cube)
+    {
+        var instance = PrefabUtility.InstantiatePrefab(cube);
+        var savePath = CubeList.PreviewPath(cube);
+        try
+        {
+            return Capture(savePath);
+        }
+        finally
+        {
+            Object.DestroyImmediate(instance);
+        }
     }
 
     /// <summary>
@@ -34,10 +62,7 @@ public static class MenuTools {
     /// Note how import options are handled, as well as how the RenderTexture is disposed (to prevent a memory leak)
     /// This code snippen is given on purpose; Read it thoroughly.
     /// </summary>
-    private static Sprite Capture(string spriteName) {
-        //Capture preview and save it to asset folder
-        string path = PREVIEWS_PATH + "/" + spriteName + ".png";
-
+    private static Sprite Capture(string path) {
         int w = 512;
         int h = 512;
         RenderTexture rt = new RenderTexture(w, h, 16);
