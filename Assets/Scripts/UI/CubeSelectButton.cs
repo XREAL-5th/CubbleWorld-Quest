@@ -9,6 +9,7 @@ public class CubeSelectButton : MonoBehaviour {
     [SerializeField] private Color defColor = Color.white, activeColor = Color.yellow;
 
     [SerializeField] private TextMeshProUGUI nameLabel;
+    [SerializeField] private RawImage icon;
     [SerializeField] private Graphic bg;
     [SerializeField] private Button button;
 
@@ -24,6 +25,7 @@ public class CubeSelectButton : MonoBehaviour {
 
     public void Set(int cubeID) {
         nameLabel.text = CubePalette.Main.cubeList.cubes[cubeID].name;
+        icon.texture = CubePalette.Main.cubeList.cubePreviews[cubeID].texture;
         this.cubeID = cubeID;
     }
 
