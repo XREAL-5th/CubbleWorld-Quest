@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +23,7 @@ public class CursorUpdater : MonoBehaviour
     private RaycastHit[] hits = new RaycastHit[15]; //we can expect at most 15 items in a straight line
     private Collider[] res = new Collider[1];
 
+    private Dictionary<string, int> cubeIdxDict = new();
 
     private void UpdateInput()
     {
@@ -40,12 +42,12 @@ public class CursorUpdater : MonoBehaviour
     {
         if (!hasTarget) return;
         
-        // TODO: select cube
-        // var cubePrefab = cubeList.cubes[0];
         var selectedCube = CubeManager.Instance.SelectedCube;
         var cubePrefab = selectedCube == null ? cubeList.cubes[0] : selectedCube;
         var cubeGameObject = Instantiate(cubePrefab, transform.position, transform.rotation);
         cubeGameObject.transform.SetParent(cubesRoot);
+        var cubeBehavior = cubeGameObject.AddComponent<CubeBehavior>();
+        cubeBehavior.CubeTypeIdx = cubeIdxDict[cubePrefab.name];
     }
 
     private void DeleteBlock()
@@ -73,6 +75,11 @@ public class CursorUpdater : MonoBehaviour
     {
         hasTarget = validPosition = false;
         mrenderer.enabled = false;
+
+        for (var i = 0; i < cubeList.cubes.Length; i++)
+        {
+            cubeIdxDict[cubeList.cubes[i].name] = i;
+        }
     }
 
     void Update()
