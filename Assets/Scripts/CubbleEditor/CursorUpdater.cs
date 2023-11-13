@@ -28,7 +28,8 @@ public class CursorUpdater : MonoBehaviour {
         bool overUI = EventSystem.current.IsPointerOverGameObject();
         if (validPosition && Input.GetMouseButtonDown(0) && !overUI) {
             int id = CubePalette.Main.currentCubeID;
-            Instantiate(cubeList.cubes[id], transform.position, transform.rotation, cubesRoot);
+            GameObject o = Instantiate(cubeList.cubes[id], transform.position, transform.rotation, cubesRoot);
+            o.AddComponent<CubeData>().id = id;
         }
         else if (Input.GetMouseButtonDown(1) && !overUI) {
             //remove cube via raycast
