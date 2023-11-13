@@ -23,19 +23,26 @@ public class CursorUpdater : MonoBehaviour {
 
 
     private void UpdateInput() {
-        //todo: Place or remove cube at local position
-        //the cursor localPosition and localRotation should be used to place the cube, as a child of cubesRoot
-        //two public bools (set in the skeleton code) can be used - hasTarget is true when the cursor is over some area inside of the room jar;
-        //validPosition is trun when hasTarget is true AND the cursor position is not obstructed.
-        //this method is called each frame, whether the cursor is in focus or not. Use !EventSystem.IsPointerOverGameObject to validate UI focus blocking.
+        //place cube
+        //todo: Place or remove cube at position
+        bool overUI = EventSystem.current.IsPointerOverGameObject();
+        if (validPosition && Input.GetMouseButtonDown(0) && !overUI) {
+            int id = CubePalette.Main.currentCubeID;
+            GameObject o = Instantiate(cubeList.cubes[id], transform.position, transform.rotation, cubesRoot);
+            o.AddComponent<CubeData>().id = id;
+        }
+        else if (Input.GetMouseButtonDown(1) && !overUI) {
+            //remove cube via raycast
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            int n = Physics.RaycastNonAlloc(ray, hits, 50, cubeLayer);
 
-        ///////////////////////////////////////////////////////
-        //////////////// TODO: WRITE CODE HERE ////////////////
-        ///////////////////////////////////////////////////////
+            RaycastHit target = GetMinDistanceHit(n);
+            if (n > 0 && target.transform.CompareTag("CubbleObject")) {
+                Destroy(target.transform.gameObject);
+            }
+        }
     }
 
-    //Below is some skeleton code responsible for raycasting and positioning the cursor before UpdateInput() is called.
-    //You may alter some code if you know what you are doing; but do note that the example answer did not modify code below so you should try not modifying the code too.
     #region SKELETON
     //////////////// SKELETON CODE - do not touch ////////////////
 
