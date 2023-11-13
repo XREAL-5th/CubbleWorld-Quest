@@ -7,8 +7,14 @@ public class CubeSaveBehavior : MonoBehaviour
     private static readonly byte Separator = byte.MaxValue;
     [SerializeField] private CubeList cubeList;
     [SerializeField] private Transform cubesRoot;
+
+    public void OnSaveMapToCopyBuffer()
+    {
+        var saveData = OnSaveMap();
+        GUIUtility.systemCopyBuffer = saveData;
+    }
     
-    public void OnSaveMap()
+    public string OnSaveMap()
     {
         List<byte> byteList = new List<byte>();
         List<byte> typeList = new List<byte>();
@@ -35,11 +41,16 @@ public class CubeSaveBehavior : MonoBehaviour
         // separater
         byteList.Add(Separator);
         byteList.AddRange(typeList);
-        string saveData = Convert.ToBase64String(byteList.ToArray());
-        GUIUtility.systemCopyBuffer = saveData;
+        return Convert.ToBase64String(byteList.ToArray());
     }
 
-    public void OnLoadMap()
+    public void OnLoadMapFromCopyBuffer()
+    {
+        string saveData = GUIUtility.systemCopyBuffer;
+        OnLoadMap(saveData);
+    }
+
+    public void OnLoadMap(string saveData)
     {
         for (var i = 0; i < transform.childCount; i++)
         {
@@ -47,7 +58,6 @@ public class CubeSaveBehavior : MonoBehaviour
             Destroy(cube);
         }
 
-        string saveData = GUIUtility.systemCopyBuffer;
         byte[] byteArr = Convert.FromBase64String(saveData);
 
         var separatorIdx = Array.IndexOf(byteArr, Separator);
