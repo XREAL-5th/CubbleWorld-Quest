@@ -12,7 +12,6 @@ public class CubeSelectButtonBehavior : MonoBehaviour
     public void SetCube(GameObject cube, Sprite sprite)
     {
         nameText.text = cube.name;
-        Debug.Log(sprite);
         cubeImage.sprite = sprite;
         this.cube = cube;
     }
