@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CubbleEditScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/CubePreviewScene.unity
+    guid: 33c7185d0a03bae42b4773477b4fe546
   m_configObjects: {}
